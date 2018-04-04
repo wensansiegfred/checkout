@@ -44,8 +44,9 @@ public class Checkout implements CheckoutInterface {
 			} else if (product.getSoldBy().equals("bulk")) {
 				total += product.getQuantity() * product.getAprice();
 			}
+			System.out.println("------------------------------");
 		}
-		System.out.println("------------------------------");
+
 		System.out.println("TOTAL: " + total);
 	}
 }

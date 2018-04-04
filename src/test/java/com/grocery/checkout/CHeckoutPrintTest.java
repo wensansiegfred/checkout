@@ -15,7 +15,7 @@ import com.grocery.checkout.model.Seller;
 import com.grocery.checkout.model.Transaction;
 import com.grocery.checkout.service.Checkout;
 
-public class CHeckoutPrintTest {
+public class CheckoutPrintTest {
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
 	@Before
@@ -35,8 +35,8 @@ public class CHeckoutPrintTest {
     	Transaction transaction = new Transaction(seller, customer);
     	Checkout checkout = new Checkout(transaction);
     	String productName = "Jeans";
-    	checkout.add(new Product(productName, 9, "piece", 3, 0,0));
-    	checkout.add(new Product("Tshirt", 9, "piece", 3, 0,0));
+    	checkout.add(new Product(productName, 9, "piece", 3, 0));
+    	checkout.add(new Product("Tshirt", 9, "piece", 3, 0));
     	checkout.print();
     	Assert.assertThat(outContent.toString(), CoreMatchers.containsString(productName));
 	}
