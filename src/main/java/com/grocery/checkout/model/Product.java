@@ -14,8 +14,29 @@ public class Product {
 	protected Product() {
 		id = (long) randomId();
 	}
-
-	public Product(String name, double price, String soldBy, int quantity, double aprice) {
+	/**
+	 * BY PIECE
+	 * @param name
+	 * @param price
+	 * @param soldBy
+	 * @param quantity
+	 */
+	public Product(String name, double price, String soldBy, int quantity) {
+		this();
+		this.name = name;
+		this.price = price;
+		this.soldBy = soldBy;
+		this.quantity = quantity;
+	}
+	/**
+	 * BULK
+	 * @param name
+	 * @param price
+	 * @param soldBy
+	 * @param quantity
+	 * @param aprice
+	 */
+	public Product(String name, double price, String soldBy, int quantity, double aprice, double discount) {
 		this();
 		this.name = name;
 		this.price = price;
@@ -24,13 +45,20 @@ public class Product {
 		this.aprice = aprice;
 	}
 
-	public Product(String name, double price, String soldBy, int quantity, double aprice, double discount) {
+	/**
+	 * W/ DISCOUNT
+	 * @param name
+	 * @param price
+	 * @param soldBy
+	 * @param quantity
+	 * @param discount
+	 */
+	public Product(String name, double price, String soldBy, int quantity, double discount) {
 		this();
 		this.name = name;
 		this.price = price;
 		this.soldBy = soldBy;
 		this.quantity = quantity;
-		this.aprice = aprice;
 		this.discount = discount;
 	}
 

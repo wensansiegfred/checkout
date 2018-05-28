@@ -17,30 +17,18 @@ public class Checkout implements CheckoutInterface {
 			if (product.getQuantity() < 1 || product.getPrice() < 0)
 				valid = false;
 		} else if (product.getSoldBy().equals(SoldBy.bulk.name())) {
-			if (product.getQuantity() < 1 || product.getAprice() < 0)
+			if (product.getQuantity() < 1 || product.getPrice() < 0)
 				valid = false;
 		} else if (product.getSoldBy().equals(SoldBy.discount.name())) {
-			if (product.getQuantity() < 1 || product.getDiscount() < 0)
+			if (product.getQuantity() < 1 || product.getDiscount() < 0 || product.getDiscount() > 1 || product.getPrice() < 1)
 				valid = false;
 		}
 		if (valid)
 			transaction.getProducts().add(product);
 		else {
-			System.err.println("You have an invalid product.");
+			System.err.println("You have entered an invalid value for product: " + product.getName());
 			System.exit(0);
 		}
-	}
-
-	public double total() {
-		double total = 0;
-		for (Product product : transaction.getProducts()) {
-			if (product.getSoldBy().equals("piece")) {
-				total += product.getPrice() * product.getQuantity();
-			} else if (product.getSoldBy().equals("bulk")) {
-				total += product.getQuantity() * product.getAprice();
-			}
-		}
-		return total;
 	}
 
 	public void print() {
@@ -54,13 +42,13 @@ public class Checkout implements CheckoutInterface {
 		for (Product product : transaction.getProducts()) {
 			System.out.println("Product No." + product.getId());
 			System.out.println("Product Name: " + product.getName());
-			if (product.getSoldBy().equals(SoldBy.piece.name())) {
+			if (product.getSoldBy().equals(SoldBy.piece.name())) {//PIECE
 				total += getPrice(product.getPrice(), product.getQuantity());
 				System.out.println("Price: P" + product.getPrice());
-			} else if (product.getSoldBy().equals(SoldBy.bulk.name())) {
-				total += getPrice(product.getAprice(), product.getQuantity());
-				System.out.println("Total Price: P" + getPrice(product.getAprice(), product.getQuantity()));
-			} else if (product.getSoldBy().equals(SoldBy.discount.name())) {
+			} else if (product.getSoldBy().equals(SoldBy.bulk.name())) {//BULK
+				total += getBulkPrice(product.getPrice(), product.getQuantity(), product.getAprice());
+				System.out.println("Total Price: P" + getBulkPrice(product.getPrice(), product.getQuantity(), product.getAprice()));
+			} else if (product.getSoldBy().equals(SoldBy.discount.name())) {//DISCOUNT
 				total += getDiscountedPrice(product.getPrice(), product.getQuantity(), product.getDiscount());
 				System.out.println("Total Price: P" + getDiscountedPrice(product.getPrice(), product.getQuantity(), product.getDiscount()));
 			}
@@ -74,6 +62,14 @@ public class Checkout implements CheckoutInterface {
 
 	private double getPrice(double price, double quantity) {
 		return price * quantity;
+	}
+
+	private double getBulkPrice(double price, double quantity, double aprice) {
+		if (aprice > 0) {
+			return aprice;
+		} else {
+			return price * quantity;
+		}
 	}
 
 	//assuming that the discount is per item
