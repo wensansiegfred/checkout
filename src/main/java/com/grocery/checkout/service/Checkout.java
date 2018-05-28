@@ -12,9 +12,23 @@ public class Checkout implements CheckoutInterface {
 	}
 
 	public void add(Product product) {
-		//Simple validation, usually we put this on the domain part using bean validation (Hibernate implementation)
-		if (product.getQuantity() >= 1 && product.getPrice() >= 0)
+		boolean valid = true;
+		if (product.getSoldBy().equals(SoldBy.piece.name())) {
+			if (product.getQuantity() < 1 || product.getPrice() < 0)
+				valid = false;
+		} else if (product.getSoldBy().equals(SoldBy.bulk.name())) {
+			if (product.getQuantity() < 1 || product.getAprice() < 0)
+				valid = false;
+		} else if (product.getSoldBy().equals(SoldBy.discount.name())) {
+			if (product.getQuantity() < 1 || product.getDiscount() < 0)
+				valid = false;
+		}
+		if (valid)
 			transaction.getProducts().add(product);
+		else {
+			System.err.println("You have an invalid product.");
+			System.exit(0);
+		}
 	}
 
 	public double total() {
@@ -51,7 +65,7 @@ public class Checkout implements CheckoutInterface {
 				System.out.println("Total Price: P" + getDiscountedPrice(product.getPrice(), product.getQuantity(), product.getDiscount()));
 			}
 
-			System.out.println("Quantity: " + product.getQuantity());
+			System.out.println("Quantity: " + (int) product.getQuantity());
 			System.out.println("------------------------------");
 		}
 

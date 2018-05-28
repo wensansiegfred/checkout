@@ -7,7 +7,7 @@ public class Product {
 	private String name;
 	private double price;
 	private String soldBy;//piece|bulk|discount
-	private double quantity;
+	private int quantity;
 	private double aprice;//arbitrary price
 	private double discount;
 
@@ -15,7 +15,7 @@ public class Product {
 		id = (long) randomId();
 	}
 
-	public Product(String name, double price, String soldBy, double quantity, double aprice) {
+	public Product(String name, double price, String soldBy, int quantity, double aprice) {
 		this();
 		this.name = name;
 		this.price = price;
@@ -24,7 +24,7 @@ public class Product {
 		this.aprice = aprice;
 	}
 
-	public Product(String name, double price, String soldBy, double quantity, double aprice, double discount) {
+	public Product(String name, double price, String soldBy, int quantity, double aprice, double discount) {
 		this();
 		this.name = name;
 		this.price = price;
@@ -78,7 +78,7 @@ public class Product {
 		return quantity;
 	}
 
-	public void setQuantity(double quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
