@@ -8,7 +8,8 @@ public class Product {
 	private double price;
 	private String soldBy;//piece|bulk|discount
 	private double quantity;
-	private double aprice;
+	private double aprice;//arbitrary price
+	private double discount;
 
 	protected Product() {
 		id = (long) randomId();
@@ -21,6 +22,16 @@ public class Product {
 		this.soldBy = soldBy;
 		this.quantity = quantity;
 		this.aprice = aprice;
+	}
+
+	public Product(String name, double price, String soldBy, double quantity, double aprice, double discount) {
+		this();
+		this.name = name;
+		this.price = price;
+		this.soldBy = soldBy;
+		this.quantity = quantity;
+		this.aprice = aprice;
+		this.discount = discount;
 	}
 
 	public double getAprice() {
@@ -74,5 +85,20 @@ public class Product {
 	private int randomId() {
 		Random rand = new Random();
 		return rand.nextInt(50000);
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price
+				+ ", soldBy=" + soldBy + ", quantity=" + quantity + ", aprice="
+				+ aprice + "]";
+	}
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
 	}
 }
